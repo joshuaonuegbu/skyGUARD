@@ -74,6 +74,7 @@ Built upon the robust CN0566 reference designs from Analog Devices, this system 
 ## Authors and Acknowledgements
 
 **Developed by:** Joshua Onuegbu (UH Senior Design Team Lead: Beamforming)
+
 **Team Members:** Mohammad Alkildar, Joseph Lee, Martin Tran, and Richard Truong
 
 **Acknowledgements:**

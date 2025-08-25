@@ -79,7 +79,7 @@ Built upon the robust CN0566 reference designs from Analog Devices, this system 
 
 **Acknowledgements:**
 *   **Jon Kraft, Analog Devices Inc.:** For foundational work on CN0566 algorithms and providing essential Python examples that served as a basis for this enhanced system.
-*   **Dr. Aaron Becker, University of Houston:** For his invaluable guidance and support as the faculty sponsor of this project.
+*   **Dr. Aaron Becker (University of Houston Faculty Sponsor), and Francesco Bernadini (University of Houston PhD Student Sponsor):** For their invaluable guidance and support as the faculty sponsor of this project.
 
 ---
 

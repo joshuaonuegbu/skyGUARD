@@ -28,6 +28,35 @@
     *   [4.2 3D Visualization Implementation](#42-3d-visualization-implementation)
     *   [4.3 Control Interface Development](#43-control-interface-development)
     *   [4.4 Diagnostic Visualization Tools](#44-diagnostic-visualization-tools)
+    *   [4.5 Information Display Panels](#45-information-display-panels)
+*   [5. Signal Processing Algorithm Development](#5-signal-processing-algorithm-development)
+    *   [5.1 Multipath Mitigation Research](#51-multipath-mitigation-research)
+    *   [5.2 Moving Target Indication (MTI) Development](#52-moving-target-indication-mti-development)
+    *   [5.3 Temporal Filtering Research](#53-temporal-filtering-research)
+*   [6. Current System Performance and Limitations](#6-current-system-performance-and-limitations)
+    *   [6.1 Measured Performance Characteristics](#61-measured-performance-characteristics)
+    *   [6.2 System Performance Observations](#62-system-performance-observations)
+*   [7. UAV Detection Research Progress](#7-uav-detection-research-progress)
+    *   [7.1 Micro-Doppler Investigation](#71-micro-doppler-investigation)
+    *   [7.2 Preliminary Detection Results](#72-preliminary-detection-results)
+*   [8. System Integration and Interoperability](#8-system-integration-and-interoperability)
+    *   [8.1 MAVLink Protocol Integration (Experimental)](#81-mavlink-protocol-integration-experimental)
+    *   [8.2 Network Architecture Considerations](#82-network-architecture-considerations)
+*   [9. Educational and Research Applications](#9-educational-and-research-applications)
+    *   [9.1 Educational Value](#91-educational-value)
+    *   [9.2 Research Platform Capabilities](#92-research-platform-capabilities)
+*   [10. Current Development Status and Contributions](#10-current-development-status-and-contributions)
+    *   [10.1 Implementation Progress](#101-implementation-progress)
+    *   [10.2 Algorithm Development Areas](#102-algorithm-development-areas)
+*   [11. Future Development Directions](#11-future-development-directions)
+    *   [11.1 Planned Algorithm Improvements](#111-planned-algorithm-improvements)
+    *   [11.2 Research Extension Opportunities](#112-research-extension-opportunities)
+*   [12. Conclusions and Current Status](#12-conclusions-and-current-status)
+    *   [12.1 Development Summary](#121-development-summary)
+    *   [12.2 Identified Limitations and Challenges](#122-identified-limitations-and-challenges)
+    *   [12.3 Educational and Research Value](#123-educational-and-research-value)
+*   [13. Technical Specifications (Current Implementation)](#13-technical-specifications-current-implementation)
+    *   [13.1 Acknowledgments](#131-acknowledgments)
 
 This repository details the development and technical analysis of an advanced 4D radar processing system, specifically designed to enhance the detection capabilities of small Unmanned Aerial Vehicles (UAVs). This project leverages a distributed architecture, featuring a Raspberry Pi for radar control and data acquisition, and a laptop-based platform for sophisticated signal processing and real-time visualization.
 
@@ -44,7 +73,7 @@ Built upon the robust CN0566 reference designs from Analog Devices, this system 
 
 ## Authors and Acknowledgements
 
-**Developed by:** Joshua Onuegbu (UH Senior Design Team Lead (Spring 2025): Beamforming)
+**Developed by:** Joshua Onuegbu (UH Senior Design Team Lead: Beamforming)
 **Team Members:** Mohammad Alkildar, Joseph Lee, Martin Tran, and Richard Truong
 
 **Acknowledgements:**

@@ -119,6 +119,8 @@ The current software implementation employs a distributed processing approach:
 
 This architecture allows for investigation of computationally intensive signal processing algorithms on the laptop platform while maintaining real-time data acquisition on the embedded system.
 
+The transmitter code is implemented in `pi_transmitter.py` on the Raspberry Pi, handling data acquisition and transmission, while the receiver and processing code is in `radar_dashboard.py` on the laptop, managing signal processing and visualization.
+
 ---
 
 ## 2. Raspberry Pi Data Acquisition Module (`pi_transmitter.py`)

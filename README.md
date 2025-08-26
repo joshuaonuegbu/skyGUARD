@@ -1,6 +1,6 @@
 # 10GHz Beamforming Radar for Drone Detection and Classification
 
-# Enhanced 4D Radar System for UAV Detection
+# Enhanced 4D Radar System for Small UAV Detection
 
 ## Table of Contents
 

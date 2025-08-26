@@ -1,6 +1,6 @@
-# Development of a 4D Radar Processing System for Small UAV Detection
+# 10GHz Beamforming Radar for Drone Detection and Classification
 
-# Enhanced 4D Radar System for Small UAV Detection
+# Enhanced 4D Radar System for UAV Detection
 
 ## Table of Contents
 

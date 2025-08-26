@@ -1,4 +1,4 @@
-# 10GHz Beamforming Radar for Drone Detection and Classification
+# University of Houston Senior Design: 10GHz Beamforming Radar for Drone Detection and Classification
 
 # Enhanced 4D Radar System for Small UAV Detection
 

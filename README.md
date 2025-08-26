@@ -48,9 +48,7 @@
 *   [10. Current Development Status and Contributions](#10-current-development-status-and-contributions)
     *   [10.1 Implementation Progress](#101-implementation-progress)
     *   [10.2 Algorithm Development Areas](#102-algorithm-development-areas)
-*   [11. Future Development Directions](#11-future-development-directions)
-    *   [11.1 Planned Algorithm Improvements](#111-planned-algorithm-improvements)
-    *   [11.2 Research Extension Opportunities](#112-research-extension-opportunities)
+*   [11. Research Extension Opportunities](#11-research-extension-opportunities)
 *   [12. Conclusions and Current Status](#12-conclusions-and-current-status)
     *   [12.1 Development Summary](#121-development-summary)
     *   [12.2 Identified Limitations and Challenges](#122-identified-limitations-and-challenges)
@@ -177,11 +175,7 @@ def apply_beamforming_enhanced(az_angle):
     my_phaser.set_beam_phase_diff(phase_diff_deg)
 ```
 
-The implementation currently explores:
-
-- ±60° azimuth coverage with variable beam positioning
-- Blackman tapering for sidelobe control
-- Approximately 2° beam resolution based on array geometry
+The `apply_beamforming_enhanced` function implements electronic beam steering by calculating the required phase progression across the 8-element phased array based on the desired azimuth angle. It uses the wave number and element spacing to determine phase shifts, applies Blackman window tapering to minimize sidelobes and improve beam pattern quality, and sets the phase differences on the CN0566 hardware. This enables variable beam positioning within ±60° azimuth coverage with an approximate 2° resolution, facilitating precise scanning for small UAV detection.
 
 ### 2.4 Data Transmission Approach
 
@@ -194,11 +188,7 @@ def safe_chunk_data(rx_data, max_samples_per_chunk=800):
     # Addresses network MTU limitations
 ```
 
-Current transmission parameters under investigation:
-
-- 50KB maximum packet size to avoid fragmentation
-- 800 samples per chunk based on empirical testing
-- UDP protocol selection for reduced latency (at the cost of reliability)
+The `safe_chunk_data` function addresses high-rate I/Q data transmission by splitting datasets into UDP packets with a maximum of 800 samples per chunk and 50KB packet size to prevent fragmentation, utilizing UDP for low-latency transfer despite potential reliability trade-offs. Ongoing investigations evaluate these parameters for optimal performance in real-time radar data streaming, balancing bandwidth constraints with data integrity requirements.
 
 ### 2.5 MAVLink Integration (Experimental)
 
@@ -212,11 +202,7 @@ def mavlink_listener(udp_socket, laptop_ip, laptop_port):
     # Explores scan pattern adaptation
 ```
 
-This experimental feature explores:
-
-- Automatic switching between operating profiles
-- Scan pattern adaptation based on platform velocity
-- Integration with standard autopilot telemetry systems
+The `mavlink_listener` function provides an experimental MAVLink interface that monitors aircraft speed and GPS status to enable adaptive radar operations, including automatic profile switching and scan pattern adjustments based on velocity. This integration with standard autopilot systems is being explored to enhance radar performance in dynamic airborne scenarios, facilitating seamless adaptation to changing flight conditions.
 
 ---
 
@@ -249,13 +235,7 @@ def enhanced_range_doppler_processing(iq_ch0, iq_ch1, use_mti=True):
     # 5. Generate range-Doppler map
 ```
 
-**Current Processing Stages Under Investigation:**
-
-- DC removal techniques (per-chirp and global methods)
-- Window function evaluation (Blackman-Harris, Hamming, etc.)
-- Range compression via FFT processing
-- Doppler analysis for velocity estimation
-- Moving Target Indication (MTI) filtering approaches
+The `enhanced_range_doppler_processing` function implements a comprehensive FMCW processing pipeline that reshapes I/Q data into chirp matrices, applies optional MTI filtering to remove static clutter, performs windowed range FFT for distance measurement, executes Doppler FFT for velocity estimation, and generates detailed range-Doppler maps. This pipeline is under ongoing development to optimize each stage for small UAV detection, with investigations into various window functions and MTI approaches to enhance resolution and target discrimination in cluttered environments.
 
 ### 3.3 Target Detection Algorithm Development
 
@@ -269,12 +249,7 @@ def advanced_cfar_detection(range_doppler_magnitude, cfar_method='average'):
     # Developing 2D CFAR for range-Doppler maps
 ```
 
-**CFAR Methods Currently Under Investigation:**
-
-- 2D CFAR processing across range-Doppler space
-- Adaptive thresholding based on local noise estimation
-- Comparison of different CFAR algorithms for small target detection
-- False alarm rate control and performance evaluation
+The `advanced_cfar_detection` function applies various Constant False Alarm Rate (CFAR) methods to range-Doppler magnitude maps, including average, greatest, smallest, and false alarm rate controlled variants, with adaptive guard and reference cell sizing for 2D processing. This implementation is being evaluated to determine the most effective approach for detecting small UAVs while maintaining low false alarm rates, through comparisons of algorithm performance in different noise environments and ongoing refinements to thresholding mechanisms.
 
 ### 3.4 Micro-Doppler Analysis Development
 
@@ -289,12 +264,7 @@ def enhanced_drone_micro_doppler_classification(rd_map_complex_history, target_i
     # 4. Researching micro-motion pattern recognition
 ```
 
-**Current Research Areas:**
-
-- Blade flash detection algorithms for periodic rotor signatures
-- Harmonic analysis methods for propeller identification
-- Spectral spreading analysis for micro-motion characterization
-- Pattern recognition approaches for UAV classification
+The `enhanced_drone_micro_doppler_classification` function implements advanced micro-Doppler analysis by applying Short-Time Fourier Transform (STFT) to the complex range-Doppler history for selected targets. It detects rotor blade flashes in the 10-200 Hz range through periodic signature identification, performs harmonic analysis to identify propeller-induced modulations, measures spectral spread for micro-motion characterization, and employs pattern recognition techniques to classify potential UAV targets. This approach aims to distinguish drones from other moving objects based on their unique propulsion signatures, with ongoing refinements to improve accuracy in varied environmental conditions.
 
 **Preliminary Investigation Results:**
 
@@ -314,13 +284,7 @@ class EnhancedKalmanTracker:
     # Exploring adaptive noise models
 ```
 
-**Current Tracking Development Areas:**
-
-- 9-state extended Kalman filter implementation (position, velocity, acceleration)
-- Investigation of adaptive noise models for different target types
-- Experimental micro-Doppler signature integration
-- Development of track quality assessment methods
-- Exploration of maneuver detection algorithms
+The `EnhancedKalmanTracker` class implements a 9-state extended Kalman filter for multi-target tracking, maintaining states for position (x, y, z), velocity (vx, vy, vz), and acceleration (ax, ay, az) to predict and update target trajectories. It incorporates adaptive noise models tailored to different target types, experimental integration of micro-Doppler signatures for enhanced classification, track quality assessment methods to evaluate reliability, and maneuver detection algorithms to handle sudden changes in target motion. This tracker is designed to improve accuracy in dynamic environments, with ongoing evaluations to refine its performance for small UAV scenarios.
 
 ### 3.6 Object Classification Research
 
@@ -334,14 +298,7 @@ def classify_semantic_object(cluster_df, environment_mode):
     # Developing confidence scoring approaches
 ```
 
-**Current Classification Categories Under Investigation:**
-
-- UAV targets (with and without micro-Doppler signatures)
-- Moving objects (vehicles, people, animals)
-- Static objects (buildings, furniture, obstacles)
-- Unknown/unclassified detections
-
-The classification accuracy and reliability are currently being evaluated under various environmental conditions.
+The `classify_semantic_object` function performs experimental semantic classification on clustered point cloud data using environmental context, analyzing features like size, motion patterns, and micro-Doppler signatures to categorize detections into UAVs, moving objects, static structures, or unknown types with associated confidence scores. This research focuses on developing robust classification methods that integrate multiple data sources for improved accuracy, with ongoing evaluations to assess performance across different scenarios and refine category boundaries for better reliability in real-world applications.
 
 ---
 
@@ -355,98 +312,25 @@ The current user interface implementation utilizes a web-based dashboard to prov
 
 The primary visualization component presents radar data in a 3D point cloud format:
 
-**Current Visualization Elements:**
-
-- Radar field-of-view representation (semi-transparent cone)
-- Distance reference markers (concentric range rings)
-- Active beam direction indicator
-- Detection points with configurable color coding
-- Experimental voxel-based object representation
-- Tracking visualization (bounding boxes and velocity vectors)
-
-**Color Coding Scheme Under Development:**
-
-- Red: Potential UAV detections
-- Green: Moving object detections
-- Orange: Static object detections
-- Cyan: Structural/environmental elements
-- Purple: Unclassified detections
-
-The effectiveness of different visualization approaches is currently being evaluated for various use cases.
+The 3D visualization implementation features a semi-transparent cone for field-of-view, concentric range rings for distance references, active beam indicators, configurable color-coded detection points, experimental voxel representations, and tracking elements like bounding boxes and velocity vectors. The color scheme under development uses red for UAVs, green for moving objects, orange for static ones, cyan for structures, and purple for unclassified detections, with ongoing evaluations to optimize these approaches for different research and operational scenarios.
 
 ### 4.3 Control Interface Development
 
 The control interface provides access to various system parameters and visualization options:
 
-**System Monitoring Elements:**
-
-- Network connectivity status indicators
-- Scan progress and completion tracking
-- Operating mode display (indoor/outdoor profiles)
-
-**Parameter Control Interface:**
-
-- Data source selection (live data vs. synthetic test data)
-- Environmental profile selection for algorithm adaptation
-- Visualization color scheme selection (velocity, range, signal strength)
-- Display element toggles for different visualization components
-- Performance mode selection for computational load management
-
-**Adjustable Parameters:**
-
-- Point size for visualization clarity
-- Voxel resolution for spatial quantization (0.1-1.0m range)
-- Object representation sizing
-- Signal-to-noise ratio thresholds (-120 to -40 dB range)
-
-The interface design continues to evolve based on user feedback and operational requirements.
+The control interface includes system monitoring with network status, scan progress, and mode displays; parameter controls for data sources, environmental profiles, color schemes, display toggles, and performance modes; and adjustable settings like point size, voxel resolution, object sizing, and SNR thresholds. This evolving design incorporates user feedback to provide flexible control over visualization and system parameters, supporting adaptive operations in various research and development contexts.
 
 ### 4.4 Diagnostic Visualization Tools
 
 Multiple diagnostic views have been implemented to support algorithm development and system analysis:
 
-**Current Diagnostic Displays:**
-
-- Range-Doppler heatmap visualization (velocity vs. distance)
-- Elevation angle distribution analysis
-- Top-down spatial view (bird's-eye perspective)
-- Experimental micro-Doppler signature display
-- Range profile history (waterfall format)
-
-These diagnostic tools facilitate algorithm development by providing multiple perspectives on the radar data and enabling detailed analysis of system performance.
+The diagnostic visualization tools include a range-Doppler heatmap for velocity-distance analysis, elevation angle distributions, top-down bird's-eye views, experimental micro-Doppler displays, and waterfall range profile histories. These multiple perspectives support algorithm development and system analysis by enabling detailed examination of radar data from various angles, facilitating performance evaluation and refinement in research settings.
 
 ### 4.5 Information Display Panels
 
 Several information panels provide real-time system status and analysis results:
 
-**Experimental Micro-Doppler Analysis Display:**
-
-- Blade frequency estimation (when available)
-- Detection confidence metrics
-- Signal strength indicators
-- Classification results (preliminary)
-
-**Object Tracking Information:**
-
-- Tracked object identifiers and classifications
-- Tracking status (preliminary/confirmed)
-- Associated detection counts
-- Range and velocity estimates
-
-**System Status Monitoring:**
-
-- Current detection counts
-- Active beam direction
-- Tracked object counts
-- Scan completion status
-
-**Performance Monitoring:**
-
-- Processing latency measurements
-- CPU and memory utilization
-- Current performance optimization level
-
-These displays support both system operation and algorithm development by providing insight into system performance and processing results.
+The information display panels feature experimental micro-Doppler analysis with blade frequency estimates, confidence metrics, signal strength, and preliminary classifications; object tracking details including IDs, statuses, detection counts, and estimates; system status indicators for detections, beam direction, tracks, and scans; and performance metrics like latency, CPU/memory usage, and optimization levels. These panels provide comprehensive real-time insights to support operations, algorithm development, and system performance analysis.
 
 ---
 
@@ -464,6 +348,8 @@ def coherent_multipath_suppression(range_doppler_history, coherence_threshold=0.
     # Developing direct-path signature preservation
 ```
 
+The `coherent_multipath_suppression` function implements an experimental multipath mitigation technique by analyzing phase consistency across multiple range-Doppler frames, using a configurable coherence threshold to attenuate incoherent signals typically associated with multipath reflections while preserving stable direct-path signatures. This approach explores multi-frame coherence metrics to differentiate between reliable target echoes and environmental multipath artifacts, aiming to enhance overall detection performance in complex environments with ongoing research into optimal threshold selection and preservation techniques.
+
 ### 5.2 Moving Target Indication (MTI) Development
 
 Multiple MTI processing approaches are being investigated:
@@ -476,6 +362,8 @@ def enhanced_mti_processing(radar_data_history, mti_mode='3pulse'):
     # Developing moving target preservation techniques
 ```
 
+The `enhanced_mti_processing` function implements Moving Target Indication through configurable modes like 2-pulse and 3-pulse cancellation, subtracting consecutive radar frames to remove static clutter while preserving signals from moving objects. This approach investigates optimal cancellation strategies for different scenarios, focusing on effective static background suppression without attenuating slow-moving targets such as hovering UAVs, with continued development to refine techniques for various environmental conditions.
+
 ### 5.3 Temporal Filtering Research
 
 Temporal consistency filtering is being explored to improve detection reliability:
@@ -487,6 +375,8 @@ def apply_temporal_coherence_filter(frame_history):
     # Exploring false alarm reduction techniques
     # Developing persistent target track maintenance
 ```
+
+The `apply_temporal_coherence_filter` function implements temporal consistency filtering by analyzing spatial grids across multiple frame histories, applying coherence metrics to reduce false alarms from transient detections while maintaining persistent tracks for consistent targets. This research explores optimization of grid resolution and coherence thresholds to balance sensitivity and reliability, particularly for tracking small UAVs in cluttered environments, with ongoing testing to evaluate effectiveness in various scenarios.
 
 These algorithms are currently in various stages of development and testing, with performance evaluation ongoing.
 
@@ -656,19 +546,7 @@ These algorithms represent ongoing research efforts with varying levels of matur
 
 ---
 
-## 11. Future Development Directions
-
-### 11.1 Planned Algorithm Improvements
-
-Several areas have been identified for future development:
-
-1. **Machine Learning Integration**: Investigation of deep learning approaches for improved classification
-2. **Multi-Static Operation**: Exploration of distributed radar network capabilities
-3. **Advanced Tracking Methods**: Research into particle filters and interacting multiple model (IMM) approaches
-4. **Sensor Fusion**: Investigation of integration with optical and LiDAR sensors
-5. **Cloud Processing**: Exploration of remote processing capabilities for computationally intensive algorithms
-
-### 11.2 Research Extension Opportunities
+## 11. Research Extension Opportunities
 
 The current platform provides a foundation for several research extensions:
 

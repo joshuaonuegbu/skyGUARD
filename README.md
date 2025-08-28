@@ -1,4 +1,4 @@
-# University of Houston Senior Design: 10GHz Beamforming Radar for Drone Detection and Classification
+# Development of a 4D Radar Processing System for Small UAV Detection
 
 # Enhanced 4D Radar System for Small UAV Detection
 
@@ -10,6 +10,7 @@
     *   [1.1 Project Motivation](#11-project-motivation)
     *   [1.2 System Overview](#12-system-overview)
     *   [1.3 Software Architecture](#13-software-architecture)
+    *   [1.4 Understanding I/Q Data](#14-understanding-iq-data)
 *   [2. Raspberry Pi Data Acquisition Module (`pi_transmitter.py`)](#2-raspberry-pi-data-acquisition-module-pi_transmitterpy)
     *   [2.1 Module Overview](#21-module-overview)
     *   [2.2 Hardware Configuration](#22-hardware-configuration)
@@ -77,7 +78,7 @@ Built upon the robust CN0566 reference designs from Analog Devices, this system 
 
 **Acknowledgements:**
 *   **Jon Kraft, Analog Devices Inc.:** For foundational work on CN0566 algorithms and providing essential Python examples that served as a basis for this enhanced system.
-*   **Dr. Aaron Becker (University of Houston Faculty Sponsor), and Francesco Bernadini (University of Houston PhD Student Sponsor):** For their invaluable guidance and support as the academic sponsors of this project.
+*   **Dr. Aaron Becker (University of Houston Faculty Sponsor), and Francesco Bernadini (University of Houston PhD Student Sponsor):** For their invaluable guidance and support as the faculty sponsor of this project.
 
 ---
 
@@ -118,6 +119,32 @@ The current software implementation employs a distributed processing approach:
 This architecture allows for investigation of computationally intensive signal processing algorithms on the laptop platform while maintaining real-time data acquisition on the embedded system.
 
 The transmitter code is implemented in `pi_transmitter.py` on the Raspberry Pi, handling data acquisition and transmission, while the receiver and processing code is in `radar_dashboard.py` on the laptop, managing signal processing and visualization.
+
+### 1.4 Understanding I/Q Data
+
+In radar systems, I/Q data refers to the In-phase (I) and Quadrature (Q) components of the received signal. These components are obtained by mixing the received RF signal with local oscillator signals that are 90 degrees out of phase. This quadrature demodulation allows the representation of the signal in a complex form, where I represents the real part and Q the imaginary part.
+
+To understand I/Q data more deeply, consider how digital information is transmitted over the air or wire by modulating a sinusoidal carrier signal. There are three primary modulation methods: amplitude modulation (changing signal strength), frequency modulation (altering oscillation speed), and phase modulation (shifting the wave's starting point in its cycle). <mcreference link="https://www.reddit.com/r/RTLSDR/comments/183ht2x/comment/kaow3ef/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button" index="0">0</mcreference>
+
+These methods can be combined to encode more information efficiently. For instance, Quadrature Phase Shift Keying (QPSK) uses four phase shifts (e.g., 45°, 135°, 225°, 315°) to represent two bits per symbol (00, 01, 10, 11). <mcreference link="https://www.reddit.com/r/RTLSDR/comments/183ht2x/comment/kaow3ef/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button" index="0">0</mcreference>
+
+Decoding involves multiplying the received signal s(t) = sin(2πft + θ) by sin(2πft) and cos(2πft), then applying low-pass filtering to extract I ~ cos(θ) and Q ~ sin(θ). The original phase is recovered via θ = atan2(Q, I), mapping back to the encoded bits. This process is robust to noise due to filtering. <mcreference link="https://www.reddit.com/r/RTLSDR/comments/183ht2x/comment/kaow3ef/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button" index="0">0</mcreference>
+
+I/Q data is crucial for several reasons in modern radar processing:
+- **Phase Information Preservation:** It maintains both amplitude and phase information, essential for Doppler processing and velocity estimation.
+- **Direction of Motion Detection:** Enables determination of whether targets are approaching or receding.
+- **Advanced Signal Processing:** Facilitates techniques like beamforming, pulse compression, and micro-Doppler analysis.
+- **Noise Reduction and Filtering:** Allows for more effective implementation of filters and detection algorithms in the complex domain.
+
+Mathematically, a general modulated signal can be expressed as:
+
+\[ A(t) \cos(\omega t + \phi(t)) = I(t) \cos(\omega t) + Q(t) \sin(\omega t) \]
+
+Where:
+- \( I(t) = A(t) \cos(\phi(t)) \) is the in-phase component
+- \( Q(t) = A(t) \sin(\phi(t)) \) is the quadrature component
+
+This decomposition is fundamental to digital signal processing in radar systems, enabling the extraction of range, velocity, and angular information from received echoes.
 
 ---
 

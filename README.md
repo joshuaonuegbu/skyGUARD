@@ -128,7 +128,7 @@ To understand I/Q data more deeply, consider how digital information is transmit
 
 These methods can be combined to encode more information efficiently. For instance, Quadrature Phase Shift Keying (QPSK) uses four phase shifts (e.g., 45°, 135°, 225°, 315°) to represent two bits per symbol (00, 01, 10, 11). <mcreference link="https://www.reddit.com/r/RTLSDR/comments/183ht2x/comment/kaow3ef/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button" index="0">0</mcreference>
 
-Decoding involves multiplying the received signal s(t) = sin(2πft + θ) by sin(2πft) and cos(2πft), then applying low-pass filtering to extract I ~ cos(θ) and Q ~ sin(θ). The original phase is recovered via θ = atan2(Q, I), mapping back to the encoded bits. This process is robust to noise due to filtering. <mcreference link="https://www.reddit.com/r/RTLSDR/comments/183ht2x/comment/kaow3ef/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button" index="0">0</mcreference>
+Decoding involves multiplying the received signal s(t) = sin(2π f t + θ) by sin(2π f t) and cos(2π f t), then applying low-pass filtering to extract I ≈ cos(θ) and Q ≈ sin(θ). The original phase is recovered via θ = atan2(Q, I), mapping back to the encoded bits. This process is robust to noise due to filtering. <mcreference link="https://www.reddit.com/r/RTLSDR/comments/183ht2x/comment/kaow3ef/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button" index="0">0</mcreference>
 
 I/Q data is crucial for several reasons in modern radar processing:
 - **Phase Information Preservation:** It maintains both amplitude and phase information, essential for Doppler processing and velocity estimation.
@@ -138,11 +138,11 @@ I/Q data is crucial for several reasons in modern radar processing:
 
 Mathematically, a general modulated signal can be expressed as:
 
-\[ A(t) \cos(\omega t + \phi(t)) = I(t) \cos(\omega t) + Q(t) \sin(\omega t) \]
+A(t) cos(ω t + φ(t)) = I(t) cos(ω t) + Q(t) sin(ω t)
 
 Where:
-- \( I(t) = A(t) \cos(\phi(t)) \) is the in-phase component
-- \( Q(t) = A(t) \sin(\phi(t)) \) is the quadrature component
+- I(t) = A(t) cos(φ(t)) is the in-phase component
+- Q(t) = A(t) sin(φ(t)) is the quadrature component
 
 This decomposition is fundamental to digital signal processing in radar systems, enabling the extraction of range, velocity, and angular information from received echoes.
 

@@ -1,6 +1,6 @@
 # skyGUARD: Geo-fenced UAV for Airspace Radar Detection
 
-# University of Houston Senior Design Project for an Enhanced 4D Radar System for Small UAV Detection
+# 4D Phased-Array Radar for Small UAV Detection: University of Houston Senior Design Project
 
 ## Table of Contents
 

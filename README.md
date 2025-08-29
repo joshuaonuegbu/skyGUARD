@@ -1,6 +1,6 @@
-# Development of a 4D Radar Processing System for Small UAV Detection
+# skyGUARD: Geo-fenced UAV for Airspace Radar Detection
 
-# Enhanced 4D Radar System for Small UAV Detection
+# University of Houston Senior Design Project for an Enhanced 4D Radar System for Small UAV Detection
 
 ## Table of Contents
 
